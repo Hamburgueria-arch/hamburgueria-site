@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cardápio Hamburgueria Burger</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fffdf5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #ffcc00;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    header img {
+      max-width: 100px;
+      display: block;
+      margin: 0 auto 0.5rem;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    /* --- Carrossel --- */
+    .carousel-container {
+      position: relative;
+      width: 95%;
+      max-width: 700px;
+      margin: 1rem auto 0.5rem;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .carousel-slide {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255, 204, 0, 0.8);
+      border: none;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 35px;
+      text-align: center;
+      color: #fff;
+      user-select: none;
+      transition: background-color 0.3s;
+    }
+
+    .carousel-arrow:hover {
+      background-color: #e0b800;
+    }
+
+    .arrow-left {
+      left: 10px;
+    }
+
+    .arrow-right {
+      right: 10px;
+    }
+
+    .promo-banner {
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 12px;
+      margin: 10px auto;
+      width: 95%;
+      max-width: 700px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .promo-banner img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      gap: 0.5rem;
+    }
+
+    .tabs button {
+      background: #ffcc00;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .tabs button.active,
+    .tabs button:hover {
+      background: #e0b800;
+      color: white;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .item {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .item h3 {
+      margin: 0 0 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .item h3 img {
+      width: 80px;
+      height: auto;
+      margin-right: 10px;
+      border-radius: 6px;
+    }
+
+    .item button {
+      background: #ffcc00;
+      border: none;
+      padding: 0.4rem 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .remove-btn {
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      margin-left: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #carrinho {
+      margin-top: 2rem;
+      background: #fff8c4;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    #whatsapp {
+      margin-top: 1rem;
+      display: inline-block;
+      background: #25d366;
+      color: white;
+      padding: 0.75rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    #whatsapp img {
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    #total {
+      margin-top: 1rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://img.freepik.com/vetores-premium/modelo-de-logotipo-de-hamburguer_476121-29.jpg" alt="Logo" />
+    <h1>Cardápio Hamburgueria Burger</h1>
+  </header>
+
+  <!-- Carrossel Promocional (3 imagens atualizadas) -->
+  <div class="carousel-container" id="carousel">
+    <button class="carousel-arrow arrow-left" id="prevBtn">&#10094;</button>
+    <div class="carousel-slide" id="carouselSlide">
+      <img src="https://i.imgur.com/VbmPh1k.jpeg" alt="Promoção 1" onclick="filtrar('combo')" />
+      <img src="https://i.imgur.com/3QffCK7.jpeg" alt="Promoção 2" onclick="filtrar('petisco')" />
+      <img src="https://i.imgur.com/HCBMLYE.jpeg" alt="Promoção 3" onclick="filtrar('bebida')" />
+    </div>
+    <button class="carousel-arrow arrow-right" id="nextBtn">&#10095;</button>
+  </div>
+
+  <div class="tabs">
+    <button class="tablink active" onclick="filtrar('hamburguer')">Hambúrgueres</button>
+    <button class="tablink" onclick="filtrar('petisco')">Petiscos</button>
+    <button class="tablink" onclick="filtrar('bebida')">Bebidas</button>
+    <button class="tablink" onclick="filtrar('combo')">Combos</button>
+  </div>
+
+  <div class="container" id="menu">
+    <!-- conteúdo das abas, itens, carrinho, etc (mesmo que antes) -->
+    <div class="item hamburguer">
+      <h3><img src="https://alloydeliveryimages.s3.sa-east-1.amazonaws.com/item_images/7290/64cebbbf5e9386fmo7.webp" alt="X-Burguer" /> X-Burguer</h3>
+      <p>Pão, hambúrguer, queijo, alface, tomate, maionese</p>
+      <p><strong>R$ 19,90</strong></p>
+      <button onclick="adicionar('X-Burguer', 19.9)">Adicionar</button>
+    </div>
+
+    <div class="item hamburguer">
+      <h3><img src="https://static.codepill.com.br/domains/7e4e09e5-31af-44d5-bd1e-428319709832/products/gallery_1a5cc893-622d-4037-8612-1e4663558187.jpg" alt="X-Tudo" /> X-Tudo</h3>
+      <p>Pão, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate, maionese</p>
+      <p><strong>R$ 19,90</strong></p>
+      <button onclick="adicionar('X-Tudo', 19.9)">Adicionar</button>
+    </div>
+
+    <div class="item hamburguer">
+      <h3><img src="https://embutidosbonatti.ind.br/temp/BIN_57_V9Fb0BwK.jpg" alt="X-Bacon" /> X-Bacon</h3>
+      <p>Pão, hambúrguer, queijo, bacon, maionese</p>
+      <p><strong>R$ 19,90</strong></p>
+      <button onclick="adicionar('X-Bacon', 19.9)">Adicionar</button>
+    </div>
+
+    <div class="item petisco">
+      <h3><img src="https://applicativa-marketplace-prod.s3.amazonaws.com/como-fazer-batata-frita-1.jpg" alt="Batata Frita" /> Batata Frita P</h3>
+      <p>Porção de batata frita crocante com sal</p>
+      <p><strong>R$ 14,90</strong></p>
+      <button onclick="adicionar('Batata Frita P', 14.9)">Adicionar</button>
+    </div>
+
+    <div class="item petisco">
+      <h3><img src="https://sabores-new.s3.amazonaws.com/public/2024/11/como_fazer_coxinha_5b80490b71f939.44065329.jpg" alt="Coxinha" /> Coxinhas</h3>
+      <p>Porção com coxinhas de frango temperadas e empanadas</p>
+      <p><strong>R$ 9,90</strong></p>
+      <button onclick="adicionar('Coxinhas', 9.9)">Adicionar</button>
+    </div>
+
+    <div class="item bebida">
+      <h3><img src="https://viverbem.unimed.coop.br/wp-content/uploads/2024/11/7c9298bb-bf32-4661-8f48-8a32ebb87361.jpeg" alt="Suco de Fruta" /> Suco de Fruta</h3>
+      <p>Suco natural (laranja, abacaxi ou caju)</p>
+      <p><strong>R$ 6,90</strong></p>
+      <button onclick="adicionar('Suco de Fruta', 6.9)">Adicionar</button>
+    </div>
+
+    <div class="item bebida">
+      <h3><img src="https://i.imgur.com/3ZmNWBU.jpeg" alt="Refrigerante" /> Refrigerante Lata</h3>
+      <p>Lata 350ml de refrigerante (Coca, Guaraná, etc.)</p>
+      <p><strong>R$ 5,00</strong></p>
+      <button onclick="adicionar('Refrigerante Lata', 5.0)">Adicionar</button>
+    </div>
+
+    <div class="item combo">
+      <h3><img src="https://i.imgur.com/NCX5UGz.jpeg" alt="Combo" /> Combo X-Tudo + Refrigerante Lata + Batata Frita</h3>
+      <p>Inclui X-Tudo completo, 1 refrigerante lata e porção de batata frita P</p>
+      <p><strong>R$ 29,90</strong></p>
+      <button onclick="adicionar('Combo X-Tudo + Refrigerante Lata + Batata Frita', 29.9)">Adicionar</button>
+    </div>
+
+    <div id="carrinho">
+      <h3>Seu Pedido:</h3>
+      <ul id="lista"></ul>
+      <div id="total">Total: R$ 0,00</div>
+      <a id="whatsapp" href="#" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        Finalizar no WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const lista = document.getElementById('lista');
+    const whatsapp = document.getElementById('whatsapp');
+    const totalDiv = document.getElementById('total');
+    let pedido = [];
+
+    function adicionar(item, preco) {
+      pedido.push({ item, preco });
+      atualizarCarrinho();
+    }
+
+    function remover(index) {
+      pedido.splice(index, 1);
+      atualizarCarrinho();
+    }
+
+    function atualizarCarrinho() {
+      lista.innerHTML = '';
+      let total = 0;
+      pedido.forEach(({ item, preco }, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${item} - R$ ${preco.toFixed(2)}`;
+        const btn = document.createElement('button');
+        btn.textContent = 'X';
+        btn.className = 'remove-btn';
+        btn.onclick = () => remover(index);
+        li.appendChild(btn);
+        lista.appendChild(li);
+        total += preco;
+      });
+
+      totalDiv.textContent = `Total: R$ ${total.toFixed(2)}`;
+
+      if (pedido.length > 0) {
+        const texto = pedido.map(p => `${p.item} - R$ ${p.preco.toFixed(2)}`).join('\n');
+        const mensagem = encodeURIComponent(`Olá! Quero fazer o seguinte pedido:\n\n${texto}\n\nTotal: R$ ${total.toFixed(2)}`);
+        whatsapp.href = `https://wa.me/5584991425698?text=${mensagem}`;
+        whatsapp.style.pointerEvents = 'auto';
+        whatsapp.style.opacity = '1';
+      } else {
+        whatsapp.href = '#';
+        whatsapp.style.pointerEvents = 'none';
+        whatsapp.style.opacity = '0.5';
+      }
+    }
+
+    function filtrar(categoria) {
+      document.querySelectorAll('.item').forEach(div => {
+        div.style.display = div.classList.contains(categoria) ? 'block' : 'none';
+      });
+      document.querySelectorAll('.tablink').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    // Carrossel
+    const carouselSlide = document.getElementById('carouselSlide');
+    const carouselImages = carouselSlide.querySelectorAll('img');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentIndex = 0;
+    const totalSlides = carouselImages.length;
+
+    function showSlide(index) {
+      if (index < 0) {
+        currentIndex = totalSlides - 1;
+      } else if (index >= totalSlides) {
+        currentIndex = 0;
+      } else {
+        currentIndex = index;
+      }
+      carouselSlide.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      showSlide(currentIndex - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      showSlide(currentIndex + 1);
+    });
+
+    // Avança automaticamente a cada 4 segundos
+    setInterval(() => {
+      showSlide(currentIndex + 1);
+    }, 4000);
+
+    window.onload = () => {
+      filtrar('hamburguer');
+      showSlide(0);
+    };
+  </script>
+</body>
+</html>
