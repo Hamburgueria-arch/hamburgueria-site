@@ -797,23 +797,27 @@
       }
     }
 
-    // Mostrar modal de senha ao clicar no botão
-    modoEdicaoBtn.addEventListener('click', () => {
-      senhaModal.style.display = 'flex';
-      senhaInput.focus();
-    });
-
     function fecharModalSenha() {
       senhaModal.style.display = 'none';
       senhaInput.value = '';
     }
 
-    // Ao carregar a página
-    window.addEventListener('DOMContentLoaded', () => {
-      carregarPedido();         // Recupera pedido salvo
-      atualizarCarrinho();      // Atualiza carrinho na tela
-      atualizarDisponibilidade(); // Atualiza status dos itens
+    // Ação ao clicar no botão de modo de edição
+    modoEdicaoBtn.addEventListener('click', () => {
+      if (!modoEdicaoAtivo) {
+        senhaModal.style.display = 'flex';
+        senhaInput.focus();
+      } else {
+        modoEdicaoAtivo = false;
+        atualizarDisponibilidade();
+      }
     });
+
+    // Inicialização
+    carregarPedido();
+    atualizarCarrinho();
+    atualizarDisponibilidade();
+    filtrar('hamburguer');
   </script>
 </body>
 </html>
