@@ -1,4 +1,3 @@
-<!-- CÓDIGO COMPLETO -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -12,26 +11,24 @@
       margin: 0;
       padding: 0;
     }
-
     header {
       background: #ffcc00;
       padding: 1rem;
       text-align: center;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-
     header img {
       max-width: 100px;
       display: block;
       margin: 0 auto 0.5rem;
     }
-
     header h1 {
       margin: 0;
       font-size: 1.8rem;
       font-weight: bold;
+      /* Adicionado para a fonte pincelada */
+      font-family: 'Brush Script MT', cursive; /* Ou outra fonte pincelada de sua preferência */
     }
-
     .carousel-container {
       position: relative;
       width: 95%;
@@ -43,12 +40,10 @@
       cursor: pointer;
       user-select: none;
     }
-
     .carousel-slide {
       display: flex;
       transition: transform 0.5s ease-in-out;
     }
-
     .carousel-slide img {
       width: 100%;
       height: auto;
@@ -56,8 +51,8 @@
       object-fit: cover;
       border-radius: 12px;
       flex-shrink: 0;
+      cursor: pointer;
     }
-
     .carousel-arrow {
       position: absolute;
       top: 50%;
@@ -75,20 +70,17 @@
       color: #fff;
       user-select: none;
       transition: background-color 0.3s;
+      z-index: 10;
     }
-
     .carousel-arrow:hover {
       background-color: #e0b800;
     }
-
     .arrow-left {
       left: 10px;
     }
-
     .arrow-right {
       right: 10px;
     }
-
     .tabs {
       display: flex;
       flex-wrap: nowrap;
@@ -98,11 +90,9 @@
       padding: 0 1rem;
       scrollbar-width: none;
     }
-
     .tabs::-webkit-scrollbar {
       display: none;
     }
-
     .tabs button {
       background: #ffcc00;
       border: none;
@@ -115,13 +105,11 @@
       text-transform: uppercase;
       white-space: nowrap;
     }
-
     .tabs button.active,
     .tabs button:hover {
       background: #e0b800;
       color: white;
     }
-
     .container {
       max-width: 700px;
       margin: 2rem auto;
@@ -130,13 +118,19 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-
     .item {
       background: #f9f9f9;
       padding: 1rem;
       border-radius: 8px;
       margin-bottom: 1rem;
       box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      opacity: 1; /* Default opacity */
+      transition: opacity 0.3s ease;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .item.indisponivel {
+      opacity: 0.5; /* Reduced opacity for unavailable items */
     }
 
     .item h3 {
@@ -144,14 +138,12 @@
       display: flex;
       align-items: center;
     }
-
     .item h3 img {
       width: 80px;
       height: auto;
       margin-right: 10px;
       border-radius: 6px;
     }
-
     .item button {
       background: #ffcc00;
       border: none;
@@ -163,6 +155,12 @@
       text-transform: uppercase;
     }
 
+    .item button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      color: #666;
+    }
+
     .remove-btn {
       background: red;
       color: white;
@@ -172,14 +170,12 @@
       cursor: pointer;
       font-weight: bold;
     }
-
     #carrinho {
       margin-top: 2rem;
       background: #fff8c4;
       padding: 1rem;
       border-radius: 8px;
     }
-
     #whatsapp {
       margin-top: 1rem;
       display: inline-block;
@@ -191,19 +187,211 @@
       font-weight: bold;
       pointer-events: none;
       opacity: 0.5;
+      user-select: none;
     }
-
     #whatsapp img {
       width: 20px;
       height: 20px;
       vertical-align: middle;
       margin-right: 8px;
     }
-
     #total {
       margin-top: 1rem;
       font-weight: bold;
       font-size: 1.1rem;
+    }
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      position: relative; /* Added for positioning the close button */
+    }
+    .modal-content h4 {
+      margin-top: 0;
+    }
+    .modal-content label {
+      display: block;
+      margin: 0.3rem 0;
+      cursor: pointer;
+      user-select: none;
+    }
+    .modal-content input[type="checkbox"] {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+    .modal-content button {
+      margin-top: 1rem;
+      background: #ffcc00;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .modal-content button:hover {
+      background: #e0b800;
+    }
+
+    /* Style for the close button */
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      text-align: center;
+      line-height: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tempo-preparo {
+      font-size: 0.8rem;
+      color: #777;
+      margin-top: 0.3rem;
+    }
+
+    /* Estilos para o modo de edição */
+    #modoEdicao {
+      position: fixed;
+      top: 10px; /* Ajuste a distância do topo */
+      left: 10px; /* Ajuste a distância da esquerda */
+      background: linear-gradient(to right, #43a047, #66bb6a);
+      color: white;
+      padding: 0.4rem 0.8rem; /* Diminui o padding */
+      border: none;
+      border-radius: 999px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 100;
+      font-size: 0.8rem; /* Diminui a fonte */
+    }
+
+    #modoEdicao:hover {
+      background: linear-gradient(to right, #388e3c, #43a047);
+      transform: scale(1.05);
+    }
+
+    .item .indisponivel-btn {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    /* Estilos para o modal de senha */
+    #senhaModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 101;
+    }
+
+    #senhaModal .modal-content {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      position: relative;
+      width: 90%;
+      max-width: 350px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    #senhaModal h3 {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    #senhaModal input[type="password"] {
+      padding: 10px;
+      width: 100%;
+      margin: 1rem 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    #senhaModal button {
+      background-color: #43a047;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #senhaModal button:hover {
+      background-color: #388e3c;
+    }
+
+    /* Estilo para o botão de fechar no modal de senha */
+    #senhaModal .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      text-align: center;
+      line-height: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10%);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @media (max-width: 480px) {
@@ -220,75 +408,91 @@
     <h1>Cardápio Hamburgueria Burger</h1>
   </header>
 
-  <div class="carousel-container" id="carousel">
-    <button class="carousel-arrow arrow-left" id="prevBtn">&#10094;</button>
-    <div class="carousel-slide" id="carouselSlide">
-      <img src="https://i.imgur.com/VbmPh1k.jpeg" alt="Promoção 1" onclick="filtrar('combo')" />
-      <img src="https://i.imgur.com/3QffCK7.jpeg" alt="Promoção 2" onclick="filtrar('petisco')" />
-      <img src="https://i.imgur.com/IdI7PiS.jpeg" alt="Promoção 3" onclick="filtrar('bebida')" />
+  <button id="modoEdicao">Ativar Modo Edição</button>
+
+  <div id="senhaModal">
+    <div class="modal-content">
+      <button class="close-button" onclick="fecharModalSenha()">X</button>
+      <h3>Digite a senha para ativar o modo de edição:</h3>
+      <input type="password" id="senhaInput" />
+      <button onclick="ativarModoEdicaoComSenha()">Confirmar</button>
     </div>
-    <button class="carousel-arrow arrow-right" id="nextBtn">&#10095;</button>
   </div>
 
-  <div class="tabs">
-    <button class="tablink active" onclick="filtrar('hamburguer')">HAMBÚRGUERES</button>
-    <button class="tablink" onclick="filtrar('petisco')">PETISCOS</button>
-    <button class="tablink" onclick="filtrar('bebida')">BEBIDAS</button>
-    <button class="tablink" onclick="filtrar('combo')">COMBOS</button>
+  <div class="carousel-container" id="carousel">
+    <button class="carousel-arrow arrow-left" id="prevBtn" aria-label="Anterior">&#10094;</button>
+    <div class="carousel-slide" id="carouselSlide">
+      <img src="https://i.imgur.com/VbmPh1k.jpeg" alt="Promoção 1" onclick="filtrar('combo', event)" tabindex="0" />
+      <img src="https://i.imgur.com/3QffCK7.jpeg" alt="Promoção 2" onclick="filtrar('petisco', event)" tabindex="0" />
+      <img src="https://i.imgur.com/IdI7PiS.jpeg" alt="Promoção 3" onclick="filtrar('bebida', event)" tabindex="0" />
+    </div>
+    <button class="carousel-arrow arrow-right" id="nextBtn" aria-label="Próximo">&#10095;</button>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tablink active" onclick="filtrar('hamburguer', event)" role="tab" aria-selected="true" tabindex="0">HAMBÚRGUERES</button>
+    <button class="tablink" onclick="filtrar('petisco', event)" role="tab" aria-selected="false" tabindex="-1">PETISCOS</button>
+    <button class="tablink" onclick="filtrar('bebida', event)" role="tab" aria-selected="false" tabindex="-1">BEBIDAS</button>
+    <button class="tablink" onclick="filtrar('combo', event)" role="tab" aria-selected="false" tabindex="-1">COMBOS</button>
   </div>
 
   <div class="container" id="menu">
-    <!-- PRODUTOS -->
-    <div class="item hamburguer">
+
+    <div class="item hamburguer" data-id="1">
       <h3><img src="https://alloydeliveryimages.s3.sa-east-1.amazonaws.com/item_images/7290/64cebbbf5e9386fmo7.webp" alt="X-Burguer" /> X-Burguer</h3>
-      <p>Pão, hambúrguer, queijo, alface, tomate, maionese</p>
+      <p>Pão, carne de hambúrguer, queijo, alface, tomate, maionese</p>
       <p><strong>R$ 19,90</strong></p>
       <button onclick="adicionar('X-Burguer', 19.9)">ADICIONAR</button>
+      <div class="tempo-preparo">Tempo de preparo: 15-20 minutos</div>
     </div>
 
-    <div class="item hamburguer">
+    <div class="item hamburguer" data-id="2">
       <h3><img src="https://static.codepill.com.br/domains/7e4e09e5-31af-44d5-bd1e-428319709832/products/gallery_1a5cc893-622d-4037-8612-1e4663558187.jpg" alt="X-Tudo" /> X-Tudo</h3>
-      <p>Pão, hambúrguer, queijo, presunto, ovo, bacon, alface, tomate, maionese</p>
+      <p>Pão, carne de hambúrguer, queijo, presunto, ovo, bacon, alface, tomate, maionese</p>
       <p><strong>R$ 19,90</strong></p>
       <button onclick="adicionar('X-Tudo', 19.9)">ADICIONAR</button>
+      <div class="tempo-preparo">Tempo de preparo: 20-25 minutos</div>
     </div>
 
-    <div class="item hamburguer">
+    <div class="item hamburguer" data-id="3">
       <h3><img src="https://embutidosbonatti.ind.br/temp/BIN_57_V9Fb0BwK.jpg" alt="X-Bacon" /> X-Bacon</h3>
-      <p>Pão, hambúrguer, queijo, bacon, maionese</p>
+      <p>Pão, carne de hambúrguer, queijo, bacon, maionese</p>
       <p><strong>R$ 19,90</strong></p>
       <button onclick="adicionar('X-Bacon', 19.9)">ADICIONAR</button>
+      <div class="tempo-preparo">Tempo de preparo: 15-20 minutos</div>
     </div>
 
-    <div class="item petisco">
+    <div class="item petisco" data-id="4">
       <h3><img src="https://applicativa-marketplace-prod.s3.amazonaws.com/como-fazer-batata-frita-1.jpg" alt="Batata Frita" /> Batata Frita P</h3>
       <p>Porção de batata frita crocante com sal</p>
       <p><strong>R$ 14,90</strong></p>
       <button onclick="adicionar('Batata Frita P', 14.9)">ADICIONAR</button>
+      <div class="tempo-preparo">Tempo de preparo: 10-15 minutos</div>
     </div>
 
-    <div class="item petisco">
+    <div class="item petisco" data-id="5">
       <h3><img src="https://sabores-new.s3.amazonaws.com/public/2024/11/como_fazer_coxinha_5b80490b71f939.44065329.jpg" alt="Coxinha" /> Coxinhas</h3>
       <p>Porção com coxinhas de frango temperadas e empanadas</p>
       <p><strong>R$ 9,90</strong></p>
       <button onclick="adicionar('Coxinhas', 9.9)">ADICIONAR</button>
+      <div class="tempo-preparo">Tempo de preparo: 15-20 minutos</div>
     </div>
 
-    <div class="item bebida">
+    <div class="item bebida" data-id="6">
       <h3><img src="https://viverbem.unimed.coop.br/wp-content/uploads/2024/11/7c9298bb-bf32-4661-8f48-8a32ebb87361.jpeg" alt="Suco de Fruta" /> Suco de Fruta</h3>
       <p>Suco natural (laranja, abacaxi ou caju)</p>
       <p><strong>R$ 6,90</strong></p>
       <button onclick="adicionar('Suco de Fruta', 6.9)">ADICIONAR</button>
     </div>
 
-    <div class="item bebida">
+    <div class="item bebida" data-id="7">
       <h3><img src="https://i.imgur.com/3ZmNWBU.jpeg" alt="Refrigerante" /> Refrigerante Lata</h3>
       <p>Lata 350ml de refrigerante (Coca, Guaraná, etc.)</p>
       <p><strong>R$ 5,00</strong></p>
       <button onclick="adicionar('Refrigerante Lata', 5.0)">ADICIONAR</button>
     </div>
 
-    <div class="item combo">
+    <div class="item combo" data-id="8">
       <h3><img src="https://i.imgur.com/NCX5UGz.jpeg" alt="Combo" /> Combo X-Tudo + Refrigerante Lata + Batata Frita</h3>
       <p>Inclui X-Tudo completo, 1 refrigerante lata e porção de batata frita P</p>
       <p><strong>R$ 29,90</strong></p>
@@ -309,10 +513,19 @@
         </select>
       </div>
 
-      <a id="whatsapp" href="#" target="_blank">
+      <a id="whatsapp" href="#" target="_blank" rel="noopener noreferrer" aria-disabled="true">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
         Finalizar no WhatsApp
       </a>
+    </div>
+  </div>
+
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <button class="close-button" onclick="fecharModal()">X</button>
+      <h4 id="modalTitle">Retirar algum ingrediente?</h4>
+      <form id="ingredientesForm"></form>
+      <button onclick="confirmarIngredientes()">ADICIONAR</button>
     </div>
   </div>
 
@@ -321,68 +534,187 @@
     const whatsapp = document.getElementById('whatsapp');
     const totalDiv = document.getElementById('total');
     const pagamentoSelect = document.getElementById('pagamento');
-    let pedido = [];
+    const modal = document.getElementById('modal');
+    const ingredientesForm = document.getElementById('ingredientesForm');
+    const menu = document.getElementById('menu'); // Container dos itens
+    const modoEdicaoBtn = document.getElementById('modoEdicao');
+    const senhaModal = document.getElementById('senhaModal');
+    const senhaInput = document.getElementById('senhaInput');
 
+    // Chaves para armazenar dados no localStorage
+    const PEDIDO_KEY = 'pedidoHamburgueria';
+    const INDISPONIVEIS_KEY = 'itensIndisponiveis';
+    const SENHA_CORRETA = '1234'; // Senha para ativar o modo de edição
+
+    let pedido = [];
     let formaPagamentoSelecionada = pagamentoSelect.value;
+    let itemTemp = null;
+    let precoTemp = 0;
+    let modoEdicaoAtivo = false;
+
+    // Função para salvar o pedido no localStorage
+    function salvarPedido() {
+      localStorage.setItem(PEDIDO_KEY, JSON.stringify(pedido));
+    }
+
+    // Função para carregar o pedido do localStorage
+    function carregarPedido() {
+      const pedidoSalvo = localStorage.getItem(PEDIDO_KEY);
+      if (pedidoSalvo) {
+        pedido = JSON.parse(pedidoSalvo);
+      }
+    }
+
+    // Gerenciar itens indisponíveis
+    function salvarItensIndisponiveis(indisponiveis) {
+      localStorage.setItem(INDISPONIVEIS_KEY, JSON.stringify(indisponiveis));
+    }
+
+    function carregarItensIndisponiveis() {
+      const indisponiveisSalvos = localStorage.getItem(INDISPONIVEIS_KEY);
+      return indisponiveisSalvos ? new Set(JSON.parse(indisponiveisSalvos)) : new Set();
+    }
+
+    let itensIndisponiveis = carregarItensIndisponiveis(); // Carrega os itens indisponíveis ao iniciar
 
     pagamentoSelect.addEventListener('change', () => {
       formaPagamentoSelecionada = pagamentoSelect.value;
       atualizarCarrinho();
     });
 
+    const ingredientesPorItem = {
+      'X-Burguer': ['Carne de Hambúrguer', 'Queijo', 'Alface', 'Tomate', 'Maionese'],
+      'X-Tudo': ['Carne de Hambúrguer', 'Queijo', 'Presunto', 'Ovo', 'Bacon', 'Alface', 'Tomate', 'Maionese'],
+      'X-Bacon': ['Carne de Hambúrguer', 'Queijo', 'Bacon', 'Maionese'],
+    };
+
     function adicionar(item, preco) {
-      pedido.push({ item, preco });
+      itemTemp = item;
+      precoTemp = preco;
+
+      const ingredientes = ingredientesPorItem[item];
+      if (!ingredientes) {
+        pedido.push({ item, preco, removidos: [] });
+        atualizarCarrinho();
+        salvarPedido(); // Salva o pedido após adicionar
+        return;
+      }
+
+      ingredientesForm.innerHTML = '';
+      ingredientes.forEach(ing => {
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.value = ing;
+        checkbox.id = `ing-${ing}`;
+        const label = document.createElement('label');
+        label.htmlFor = `ing-${ing}`;
+        label.textContent = ing;
+        label.prepend(checkbox);
+        ingredientesForm.appendChild(label);
+      });
+
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+
+      const firstCheckbox = ingredientesForm.querySelector('input[type=checkbox]');
+      if (firstCheckbox) firstCheckbox.focus();
+    }
+
+    function confirmarIngredientes() {
+      const checkboxes = ingredientesForm.querySelectorAll('input[type=checkbox]');
+      const removidos = [];
+      checkboxes.forEach(cb => {
+        if (cb.checked) removidos.push(cb.value);
+      });
+
+      pedido.push({ item: itemTemp, preco: precoTemp, removidos });
+      itemTemp = null;
+      precoTemp = 0;
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
       atualizarCarrinho();
+      salvarPedido(); // Salva o pedido após confirmar ingredientes
     }
 
     function remover(index) {
       pedido.splice(index, 1);
       atualizarCarrinho();
+      salvarPedido(); // Salva o pedido após remover
     }
 
     function atualizarCarrinho() {
       lista.innerHTML = '';
       let total = 0;
 
-      pedido.forEach(({ item, preco }, index) => {
+      pedido.forEach(({ item, preco, removidos }, index) => {
+        let textoItem = `${item} - R$ ${preco.toFixed(2)}`;
+        if (removidos && removidos.length > 0) {
+          textoItem += ` (sem: ${removidos.join(', ')})`;
+        }
+
         const li = document.createElement('li');
-        li.textContent = `${item} - R$ ${preco.toFixed(2)}`;
+        li.textContent = textoItem;
+
         const btn = document.createElement('button');
         btn.textContent = 'X';
         btn.className = 'remove-btn';
         btn.onclick = () => remover(index);
         li.appendChild(btn);
+
         lista.appendChild(li);
         total += preco;
       });
 
       totalDiv.textContent = `Total: R$ ${total.toFixed(2)}`;
 
-      pagamentoSelect.value = formaPagamentoSelecionada;
-
       if (pedido.length > 0 && formaPagamentoSelecionada) {
-        const texto = pedido.map(p => `${p.item} - R$ ${p.preco.toFixed(2)}`).join('\n');
+        const texto = pedido.map(p => {
+          let linha = `${p.item} - R$ ${p.preco.toFixed(2)}`;
+          if (p.removidos && p.removidos.length > 0) {
+            linha += ` (sem: ${p.removidos.join(', ')})`;
+          }
+          return linha;
+        }).join('\n');
+
         const mensagem = encodeURIComponent(
           `Olá! Quero fazer o seguinte pedido:\n\n${texto}\n\nTotal: R$ ${total.toFixed(2)}\nForma de pagamento: ${formaPagamentoSelecionada}`
         );
+
         whatsapp.href = `https://wa.me/5584991425698?text=${mensagem}`;
         whatsapp.style.pointerEvents = 'auto';
         whatsapp.style.opacity = '1';
+        whatsapp.setAttribute('aria-disabled', 'false');
       } else {
         whatsapp.href = '#';
         whatsapp.style.pointerEvents = 'none';
         whatsapp.style.opacity = '0.5';
+        whatsapp.setAttribute('aria-disabled', 'true');
       }
     }
 
-    function filtrar(categoria) {
+    function filtrar(categoria, event) {
+      if(event) event.preventDefault();
+
       document.querySelectorAll('.item').forEach(div => {
         div.style.display = div.classList.contains(categoria) ? 'block' : 'none';
       });
-      document.querySelectorAll('.tablink').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+
+      document.querySelectorAll('.tablink').forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+        btn.tabIndex = -1;
+      });
+
+      // Marca o botão ativo corretamente
+      if(event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+        event.currentTarget.setAttribute('aria-selected', 'true');
+        event.currentTarget.tabIndex = 0;
+        event.currentTarget.focus();
+      }
     }
 
+    // CARROSSEL
     const carouselSlide = document.getElementById('carouselSlide');
     const carouselImages = carouselSlide.querySelectorAll('img');
     const prevBtn = document.getElementById('prevBtn');
@@ -391,13 +723,10 @@
     const totalSlides = carouselImages.length;
 
     function showSlide(index) {
-      if (index < 0) {
-        currentIndex = totalSlides - 1;
-      } else if (index >= totalSlides) {
-        currentIndex = 0;
-      } else {
-        currentIndex = index;
-      }
+      if (index < 0) currentIndex = totalSlides - 1;
+      else if (index >= totalSlides) currentIndex = 0;
+      else currentIndex = index;
+
       carouselSlide.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
 
@@ -405,11 +734,86 @@
     nextBtn.addEventListener('click', () => showSlide(currentIndex + 1));
     setInterval(() => showSlide(currentIndex + 1), 4000);
 
-    window.onload = () => {
-      filtrar('hamburguer');
-      showSlide(0);
-      atualizarCarrinho();
-    };
+    function fecharModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    // Função para atualizar a disponibilidade dos itens
+    function atualizarDisponibilidade() {
+      document.querySelectorAll('.item').forEach(item => {
+        const itemId = item.dataset.id;
+        const button = item.querySelector('button');
+
+        if (itensIndisponiveis.has(itemId)) {
+          item.classList.add('indisponivel');
+          button.disabled = true;
+        } else {
+          item.classList.remove('indisponivel');
+          button.disabled = false;
+        }
+
+        // Adiciona/remove o botão de indisponibilidade no modo de edição
+        let indisponivelBtn = item.querySelector('.indisponivel-btn');
+        if (modoEdicaoAtivo) {
+          if (!indisponivelBtn) {
+            indisponivelBtn = document.createElement('button');
+            indisponivelBtn.classList.add('indisponivel-btn');
+            indisponivelBtn.textContent = itensIndisponiveis.has(itemId) ? 'Disponível' : 'Indisponível';
+            indisponivelBtn.onclick = () => {
+              toggleIndisponibilidade(itemId);
+            };
+            item.appendChild(indisponivelBtn);
+          } else {
+            indisponivelBtn.textContent = itensIndisponiveis.has(itemId) ? 'Disponível' : 'Indisponível';
+          }
+        } else if (indisponivelBtn) {
+          indisponivelBtn.remove();
+        }
+      });
+    }
+
+    // Exemplo de função para marcar/desmarcar um item como indisponível
+    function toggleIndisponibilidade(itemId) {
+      if (itensIndisponiveis.has(itemId)) {
+        itensIndisponiveis.delete(itemId);
+      } else {
+        itensIndisponiveis.add(itemId);
+      }
+      salvarItensIndisponiveis(Array.from(itensIndisponiveis)); // Salva no localStorage
+      atualizarDisponibilidade(); // Atualiza a interface
+    }
+
+    // Ativa o modo de edição (com senha)
+    function ativarModoEdicaoComSenha() {
+      const senhaDigitada = senhaInput.value;
+      if (senhaDigitada === SENHA_CORRETA) {
+        modoEdicaoAtivo = true;
+        senhaModal.style.display = 'none';
+        senhaInput.value = '';
+        atualizarDisponibilidade();
+      } else {
+        alert('Senha incorreta!');
+      }
+    }
+
+    // Mostrar modal de senha ao clicar no botão
+    modoEdicaoBtn.addEventListener('click', () => {
+      senhaModal.style.display = 'flex';
+      senhaInput.focus();
+    });
+
+    function fecharModalSenha() {
+      senhaModal.style.display = 'none';
+      senhaInput.value = '';
+    }
+
+    // Ao carregar a página
+    window.addEventListener('DOMContentLoaded', () => {
+      carregarPedido();         // Recupera pedido salvo
+      atualizarCarrinho();      // Atualiza carrinho na tela
+      atualizarDisponibilidade(); // Atualiza status dos itens
+    });
   </script>
 </body>
 </html>
