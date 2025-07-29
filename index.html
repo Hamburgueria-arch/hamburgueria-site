@@ -176,25 +176,6 @@
       padding: 1rem;
       border-radius: 8px;
     }
-    #whatsapp {
-      margin-top: 1rem;
-      display: inline-block;
-      background: #25d366;
-      color: white;
-      padding: 0.75rem 1.2rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      pointer-events: none;
-      opacity: 0.5;
-      user-select: none;
-    }
-    #whatsapp img {
-      width: 20px;
-      height: 20px;
-      vertical-align: middle;
-      margin-right: 8px;
-    }
     #total {
       margin-top: 1rem;
       font-weight: bold;
@@ -272,42 +253,8 @@
       margin-top: 0.3rem;
     }
 
-    /* Estilos para o modo de edição */
-    #modoEdicao {
-      position: fixed;
-      top: 10px; /* Ajuste a distância do topo */
-      left: 10px; /* Ajuste a distância da esquerda */
-      background: linear-gradient(to right, #43a047, #66bb6a);
-      color: white;
-      padding: 0.4rem 0.8rem; /* Diminui o padding */
-      border: none;
-      border-radius: 999px;
-      font-weight: bold;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 100;
-      font-size: 0.8rem; /* Diminui a fonte */
-    }
-
-    #modoEdicao:hover {
-      background: linear-gradient(to right, #388e3c, #43a047);
-      transform: scale(1.05);
-    }
-
-    .item .indisponivel-btn {
-      background-color: #f44336;
-      color: white;
-      border: none;
-      padding: 0.2rem 0.5rem;
-      border-radius: 3px;
-      cursor: pointer;
-      margin-left: 0.5rem;
-      font-size: 0.8rem;
-    }
-
-    /* Estilos para o modal de senha */
-    #senhaModal {
+    /* Estilos para o modal de confirmação */
+    #confirmacaoModal {
       position: fixed;
       top: 0;
       left: 0;
@@ -317,53 +264,96 @@
       display: none;
       justify-content: center;
       align-items: center;
-      z-index: 101;
+      z-index: 1001;
     }
 
-    #senhaModal .modal-content {
+    #confirmacaoModal .modal-content {
       background-color: #ffffff;
       padding: 2rem;
       border-radius: 12px;
       text-align: center;
       position: relative;
       width: 90%;
-      max-width: 350px;
+      max-width: 500px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-      animation: fadeIn 0.3s ease-out;
     }
 
-    #senhaModal h3 {
+    #confirmacaoModal h3 {
       margin-bottom: 1rem;
       font-size: 1.2rem;
       color: #333;
     }
 
-    #senhaModal input[type="password"] {
-      padding: 10px;
-      width: 100%;
-      margin: 1rem 0;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
+    #confirmacaoModal ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 1rem;
     }
 
-    #senhaModal button {
-      background-color: #43a047;
+    #confirmacaoModal li {
+      padding: 0.5rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    #confirmacaoModal li:last-child {
+      border-bottom: none;
+    }
+
+    #confirmacaoModal .total {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+
+    #confirmacaoModal .botoes {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 2rem;
+    }
+
+    /* Estilos para os botões do modal de confirmação */
+    #confirmacaoModal button {
       color: white;
       padding: 0.6rem 1.2rem;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      outline: none;
     }
 
-    #senhaModal button:hover {
-      background-color: #388e3c;
+    #confirmacaoModal button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 
-    /* Estilo para o botão de fechar no modal de senha */
-    #senhaModal .close-button {
+    #confirmacaoModal button:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    #confirmacaoModal button.cancelar {
+      background-color: #f44336;
+    }
+
+    #confirmacaoModal button.cancelar:hover {
+      background-color: #d32f2f;
+    }
+
+    #confirmacaoModal button[onclick="enviarParaWhatsApp()"] {
+      background-color: #4CAF50;
+    }
+
+    #confirmacaoModal button[onclick="enviarParaWhatsApp()"]:hover {
+      background-color: #388E3C;
+    }
+
+    /* Estilo para o botão de fechar no modal de confirmação */
+    #confirmacaoModal .close-button {
       position: absolute;
       top: 10px;
       right: 10px;
@@ -383,6 +373,34 @@
       justify-content: center;
     }
 
+    /* Estilos para o botão "Finalizar Pedido" */
+    #finalizarPedido {
+      background: linear-gradient(to right, #4CAF50, #81C784);
+      color: white;
+      padding: 0.5rem 1rem; /* Diminuindo o padding */
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      font-size: 0.9rem; /* Diminuindo o tamanho da fonte */
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      outline: none;
+    }
+
+    #finalizarPedido:hover {
+      background: linear-gradient(to right, #388E3C, #66BB6A);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    #finalizarPedido:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -394,12 +412,6 @@
       }
     }
 
-    @media (max-width: 480px) {
-      .carousel-container {
-        width: 95vw;
-        max-width: none;
-      }
-    }
   </style>
 </head>
 <body>
@@ -407,17 +419,6 @@
     <img src="https://img.freepik.com/vetores-premium/modelo-de-logotipo-de-hamburguer_476121-29.jpg" alt="Logo" />
     <h1>Cardápio Hamburgueria Burger</h1>
   </header>
-
-  <button id="modoEdicao">Ativar Modo Edição</button>
-
-  <div id="senhaModal">
-    <div class="modal-content">
-      <button class="close-button" onclick="fecharModalSenha()">X</button>
-      <h3>Digite a senha para ativar o modo de edição:</h3>
-      <input type="password" id="senhaInput" />
-      <button onclick="ativarModoEdicaoComSenha()">Confirmar</button>
-    </div>
-  </div>
 
   <div class="carousel-container" id="carousel">
     <button class="carousel-arrow arrow-left" id="prevBtn" aria-label="Anterior">&#10094;</button>
@@ -483,6 +484,7 @@
       <p>Suco natural (laranja, abacaxi ou caju)</p>
       <p><strong>R$ 6,90</strong></p>
       <button onclick="adicionar('Suco de Fruta', 6.9)">ADICIONAR</button>
+      <div class="tempo-preparo">Tempo de preparo: 5-10 minutos</div>
     </div>
 
     <div class="item bebida" data-id="7">
@@ -513,10 +515,7 @@
         </select>
       </div>
 
-      <a id="whatsapp" href="#" target="_blank" rel="noopener noreferrer" aria-disabled="true">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
-        Finalizar no WhatsApp
-      </a>
+      <button id="finalizarPedido">Finalizar Pedido</button>
     </div>
   </div>
 
@@ -529,6 +528,20 @@
     </div>
   </div>
 
+  <!-- Modal de Confirmação -->
+  <div id="confirmacaoModal" class="modal">
+    <div class="modal-content">
+      <button class="close-button" onclick="fecharConfirmacaoModal()">X</button>
+      <h3>Confirme seu pedido:</h3>
+      <ul id="listaConfirmacao"></ul>
+      <div class="total" id="totalConfirmacao">Total: R$ 0,00</div>
+      <div class="botoes">
+        <button class="cancelar" onclick="fecharConfirmacaoModal()">Cancelar</button>
+        <button onclick="enviarParaWhatsApp()">Confirmar e Enviar</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const lista = document.getElementById('lista');
     const whatsapp = document.getElementById('whatsapp');
@@ -536,21 +549,18 @@
     const pagamentoSelect = document.getElementById('pagamento');
     const modal = document.getElementById('modal');
     const ingredientesForm = document.getElementById('ingredientesForm');
-    const menu = document.getElementById('menu'); // Container dos itens
-    const modoEdicaoBtn = document.getElementById('modoEdicao');
-    const senhaModal = document.getElementById('senhaModal');
-    const senhaInput = document.getElementById('senhaInput');
+    const finalizarPedidoBtn = document.getElementById('finalizarPedido');
+    const confirmacaoModal = document.getElementById('confirmacaoModal');
+    const listaConfirmacao = document.getElementById('listaConfirmacao');
+    const totalConfirmacao = document.getElementById('totalConfirmacao');
 
     // Chaves para armazenar dados no localStorage
     const PEDIDO_KEY = 'pedidoHamburgueria';
-    const INDISPONIVEIS_KEY = 'itensIndisponiveis';
-    const SENHA_CORRETA = '1234'; // Senha para ativar o modo de edição
 
     let pedido = [];
     let formaPagamentoSelecionada = pagamentoSelect.value;
     let itemTemp = null;
     let precoTemp = 0;
-    let modoEdicaoAtivo = false;
 
     // Função para salvar o pedido no localStorage
     function salvarPedido() {
@@ -564,18 +574,6 @@
         pedido = JSON.parse(pedidoSalvo);
       }
     }
-
-    // Gerenciar itens indisponíveis
-    function salvarItensIndisponiveis(indisponiveis) {
-      localStorage.setItem(INDISPONIVEIS_KEY, JSON.stringify(indisponiveis));
-    }
-
-    function carregarItensIndisponiveis() {
-      const indisponiveisSalvos = localStorage.getItem(INDISPONIVEIS_KEY);
-      return indisponiveisSalvos ? new Set(JSON.parse(indisponiveisSalvos)) : new Set();
-    }
-
-    let itensIndisponiveis = carregarItensIndisponiveis(); // Carrega os itens indisponíveis ao iniciar
 
     pagamentoSelect.addEventListener('change', () => {
       formaPagamentoSelecionada = pagamentoSelect.value;
@@ -594,9 +592,7 @@
 
       const ingredientes = ingredientesPorItem[item];
       if (!ingredientes) {
-        pedido.push({ item, preco, removidos: [] });
-        atualizarCarrinho();
-        salvarPedido(); // Salva o pedido após adicionar
+        adicionarItemAoPedido({ item, preco, removidos: [] });
         return;
       }
 
@@ -627,33 +623,61 @@
         if (cb.checked) removidos.push(cb.value);
       });
 
-      pedido.push({ item: itemTemp, preco: precoTemp, removidos });
+      adicionarItemAoPedido({ item: itemTemp, preco: precoTemp, removidos });
       itemTemp = null;
       precoTemp = 0;
       modal.style.display = 'none';
       document.body.style.overflow = '';
+    }
+
+    function adicionarItemAoPedido(item) {
+      const itemExistente = pedido.find(p => p.item === item.item && JSON.stringify(p.removidos) === JSON.stringify(item.removidos));
+
+      if (itemExistente) {
+        itemExistente.quantidade = (itemExistente.quantidade || 1) + 1;
+      } else {
+        pedido.push({ ...item, quantidade: 1 });
+      }
+
       atualizarCarrinho();
-      salvarPedido(); // Salva o pedido após confirmar ingredientes
     }
 
     function remover(index) {
       pedido.splice(index, 1);
       atualizarCarrinho();
-      salvarPedido(); // Salva o pedido após remover
+    }
+
+    function removerUm(index) {
+      if (pedido[index].quantidade > 1) {
+        pedido[index].quantidade--;
+      } else {
+        remover(index);
+      }
+      atualizarCarrinho();
     }
 
     function atualizarCarrinho() {
       lista.innerHTML = '';
       let total = 0;
 
-      pedido.forEach(({ item, preco, removidos }, index) => {
-        let textoItem = `${item} - R$ ${preco.toFixed(2)}`;
-        if (removidos && removidos.length > 0) {
-          textoItem += ` (sem: ${removidos.join(', ')})`;
+      pedido.forEach((item, index) => {
+        let textoItem = `${item.item} - R$ ${item.preco.toFixed(2)}`;
+        if (item.removidos && item.removidos.length > 0) {
+          textoItem += ` (sem: ${item.removidos.join(', ')})`;
         }
 
         const li = document.createElement('li');
         li.textContent = textoItem;
+
+        if (item.quantidade > 1) {
+          li.textContent += ` (x${item.quantidade})`;
+        }
+
+        const btnRemoverUm = document.createElement('button');
+        btnRemoverUm.textContent = '-';
+        btnRemoverUm.className = 'remove-btn';
+        btnRemoverUm.onclick = () => removerUm(index);
+        li.appendChild(btnRemoverUm);
 
         const btn = document.createElement('button');
         btn.textContent = 'X';
@@ -662,34 +686,11 @@
         li.appendChild(btn);
 
         lista.appendChild(li);
-        total += preco;
+        total += item.preco * (item.quantidade || 1);
       });
 
       totalDiv.textContent = `Total: R$ ${total.toFixed(2)}`;
-
-      if (pedido.length > 0 && formaPagamentoSelecionada) {
-        const texto = pedido.map(p => {
-          let linha = `${p.item} - R$ ${p.preco.toFixed(2)}`;
-          if (p.removidos && p.removidos.length > 0) {
-            linha += ` (sem: ${p.removidos.join(', ')})`;
-          }
-          return linha;
-        }).join('\n');
-
-        const mensagem = encodeURIComponent(
-          `Olá! Quero fazer o seguinte pedido:\n\n${texto}\n\nTotal: R$ ${total.toFixed(2)}\nForma de pagamento: ${formaPagamentoSelecionada}`
-        );
-
-        whatsapp.href = `https://wa.me/5584991425698?text=${mensagem}`;
-        whatsapp.style.pointerEvents = 'auto';
-        whatsapp.style.opacity = '1';
-        whatsapp.setAttribute('aria-disabled', 'false');
-      } else {
-        whatsapp.href = '#';
-        whatsapp.style.pointerEvents = 'none';
-        whatsapp.style.opacity = '0.5';
-        whatsapp.setAttribute('aria-disabled', 'true');
-      }
+      salvarPedido();
     }
 
     function filtrar(categoria, event) {
@@ -739,84 +740,71 @@
         document.body.style.overflow = '';
     }
 
-    // Função para atualizar a disponibilidade dos itens
-    function atualizarDisponibilidade() {
-      document.querySelectorAll('.item').forEach(item => {
-        const itemId = item.dataset.id;
-        const button = item.querySelector('button');
+    // Modal de Confirmação
+    finalizarPedidoBtn.addEventListener('click', () => {
+      if (pedido.length === 0) {
+        alert('Seu carrinho está vazio!');
+        return;
+      }
 
-        if (itensIndisponiveis.has(itemId)) {
-          item.classList.add('indisponivel');
-          button.disabled = true;
-        } else {
-          item.classList.remove('indisponivel');
-          button.disabled = false;
+      listaConfirmacao.innerHTML = '';
+      let total = 0;
+
+      pedido.forEach(item => {
+        let textoItem = `${item.item} - R$ ${item.preco.toFixed(2)}`;
+        if (item.removidos && item.removidos.length > 0) {
+          textoItem += ` (sem: ${item.removidos.join(', ')})`;
+        }
+        if (item.quantidade > 1) {
+          textoItem += ` (x${item.quantidade})`;
         }
 
-        // Adiciona/remove o botão de indisponibilidade no modo de edição
-        let indisponivelBtn = item.querySelector('.indisponivel-btn');
-        if (modoEdicaoAtivo) {
-          if (!indisponivelBtn) {
-            indisponivelBtn = document.createElement('button');
-            indisponivelBtn.classList.add('indisponivel-btn');
-            indisponivelBtn.textContent = itensIndisponiveis.has(itemId) ? 'Disponível' : 'Indisponível';
-            indisponivelBtn.onclick = () => {
-              toggleIndisponibilidade(itemId);
-            };
-            item.appendChild(indisponivelBtn);
-          } else {
-            indisponivelBtn.textContent = itensIndisponiveis.has(itemId) ? 'Disponível' : 'Indisponível';
-          }
-        } else if (indisponivelBtn) {
-          indisponivelBtn.remove();
-        }
+        const li = document.createElement('li');
+        li.textContent = textoItem;
+        listaConfirmacao.appendChild(li);
+        total += item.preco * (item.quantidade || 1);
       });
-    }
 
-    // Exemplo de função para marcar/desmarcar um item como indisponível
-    function toggleIndisponibilidade(itemId) {
-      if (itensIndisponiveis.has(itemId)) {
-        itensIndisponiveis.delete(itemId);
-      } else {
-        itensIndisponiveis.add(itemId);
-      }
-      salvarItensIndisponiveis(Array.from(itensIndisponiveis)); // Salva no localStorage
-      atualizarDisponibilidade(); // Atualiza a interface
-    }
-
-    // Ativa o modo de edição (com senha)
-    function ativarModoEdicaoComSenha() {
-      const senhaDigitada = senhaInput.value;
-      if (senhaDigitada === SENHA_CORRETA) {
-        modoEdicaoAtivo = true;
-        senhaModal.style.display = 'none';
-        senhaInput.value = '';
-        atualizarDisponibilidade();
-      } else {
-        alert('Senha incorreta!');
-      }
-    }
-
-    function fecharModalSenha() {
-      senhaModal.style.display = 'none';
-      senhaInput.value = '';
-    }
-
-    // Ação ao clicar no botão de modo de edição
-    modoEdicaoBtn.addEventListener('click', () => {
-      if (!modoEdicaoAtivo) {
-        senhaModal.style.display = 'flex';
-        senhaInput.focus();
-      } else {
-        modoEdicaoAtivo = false;
-        atualizarDisponibilidade();
-      }
+      totalConfirmacao.textContent = `Total: R$ ${total.toFixed(2)}`;
+      confirmacaoModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
     });
+
+    function fecharConfirmacaoModal() {
+      confirmacaoModal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function enviarParaWhatsApp() {
+      let total = 0;
+      pedido.forEach(item => {
+        total += item.preco * (item.quantidade || 1);
+      });
+
+      const texto = pedido.map(p => {
+        let linha = `${p.item} - R$ ${p.preco.toFixed(2)}`;
+        if (p.removidos && p.removidos.length > 0) {
+          linha += ` (sem: ${p.removidos.join(', ')})`;
+        }
+        if (p.quantidade > 1) {
+          linha += ` (x${p.quantidade})`;
+        }
+        return linha;
+      }).join('\n');
+
+      const mensagem = encodeURIComponent(
+        `Olá! Quero fazer o seguinte pedido:\n\n${texto}\n\nTotal: R$ ${total.toFixed(2)}\nForma de pagamento: ${formaPagamentoSelecionada}`
+      );
+
+      const whatsappLink = `https://wa.me/5584991425698?text=${mensagem}`;
+      window.open(whatsappLink, '_blank');
+
+      fecharConfirmacaoModal();
+    }
 
     // Inicialização
     carregarPedido();
     atualizarCarrinho();
-    atualizarDisponibilidade();
     filtrar('hamburguer');
   </script>
 </body>
